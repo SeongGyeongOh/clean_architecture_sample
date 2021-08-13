@@ -56,6 +56,9 @@ class MainViewModel @Inject constructor(
                 MainIntent.GetCnt -> {
                     getCnt()
                 }
+                is MainIntent.SendTodoDetail -> {
+                    _todo.value = it.todo
+                }
                 is MainIntent.SaveCnt -> {
                     saveCnt(it.cnt)
                 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.architecturekotlin.R
 import com.example.architecturekotlin.databinding.ItemTodoBinding
 import com.example.architecturekotlin.domain.model.TodoModel
+import com.example.architecturekotlin.presenter.main.MainIntent
 import com.example.architecturekotlin.presenter.main.MainViewModel
 import com.example.architecturekotlin.util.common.Logger
 import javax.inject.Inject
@@ -53,7 +54,7 @@ class TodoAdapter @Inject constructor(
         }
 
         fun goToDetailFragment(todoModel: TodoModel) {
-            viewModel?._todo?.value = todoModel
+            viewModel?.setIntent(MainIntent.SendTodoDetail(todoModel))
 
             val action = TodoFragmentDirections
                 .actionTodoFragmentToTodoDetailFragment()
