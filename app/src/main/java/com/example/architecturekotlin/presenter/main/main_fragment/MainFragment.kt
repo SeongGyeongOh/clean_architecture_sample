@@ -34,7 +34,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.presenter = this
-        mainViewModel.setIntent(MainIntent.GetTodos)
     }
 
     fun goCntFragment() {
@@ -47,5 +46,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         findNavController().navigate(action)
     }
 
+    fun goWalkFragment() {
+        val action = MainFragmentDirections.actionMainFragmentToWalkFragment()
+        findNavController().navigate(action)
+    }
 
+    fun goBarcodeFragment() {
+        val action = MainFragmentDirections.actionMainFragmentToBarcodeFragment()
+        findNavController().navigate(action)
+    }
 }
