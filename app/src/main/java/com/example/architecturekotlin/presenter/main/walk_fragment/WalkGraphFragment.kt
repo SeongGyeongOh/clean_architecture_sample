@@ -31,7 +31,7 @@ class WalkGraphFragment : BaseFragment<FragmentWalkGraphBinding>() {
     var barChart: BarChart? = null
     var cntList = listOf<WalkModel>()
     var xAxisTitle = mutableListOf<String>()
-    val valueList = mutableListOf<Double>()
+    var valueList = mutableListOf<Double>()
     val entries = mutableListOf<BarEntry>()
 
     override fun getFragmentBinding(
@@ -43,6 +43,7 @@ class WalkGraphFragment : BaseFragment<FragmentWalkGraphBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Logger.d("그래프 프래그먼트 : onViewCreated")
 
         cntList = listOf()
 
@@ -76,10 +77,15 @@ class WalkGraphFragment : BaseFragment<FragmentWalkGraphBinding>() {
     }
 
     private fun setChart() {
+        Logger.d("그래프 프래그먼트 : setChart")
+        valueList = mutableListOf()
+
         cntList.forEach { data ->
             valueList.add(data.count.toDouble())
             xAxisTitle.add(data.date)
         }
+
+        Logger.d("그래프 프래그먼트 valueList: $valueList")
 
         valueList.forEachIndexed { index, data ->
             val barEntry = BarEntry(index.toFloat(), data.toFloat())
@@ -122,6 +128,7 @@ class WalkGraphFragment : BaseFragment<FragmentWalkGraphBinding>() {
             position = XAxis.XAxisPosition.BOTTOM
             setDrawAxisLine(false)
             setDrawGridLines(false)
+            granularity = 1f
         }
 
         //좌측 하단 bar에 대한 설명
@@ -135,8 +142,8 @@ class WalkGraphFragment : BaseFragment<FragmentWalkGraphBinding>() {
     }
 
     override fun onPause() {
-        super.onPause()
-        Logger.d("그래프 화면 onPause")
         cntList = listOf()
+        super.onPause()
+        Logger.d("그래프 프래그먼트 : onPause")
     }
 }

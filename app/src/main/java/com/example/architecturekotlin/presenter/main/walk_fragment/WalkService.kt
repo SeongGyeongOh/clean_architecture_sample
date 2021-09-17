@@ -73,10 +73,12 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
             Logger.d("핸드폰을 재실행했고 날짜가 아직 리셋되지 않았을 때")
             stepType = StepType.FIRST
             storedCount = pref.getIntValue("rebootDefault")
-        } else {
+        } else if (isInitialStepSetup) {
             Logger.d("앱 최초 실행이 아니고, 카운트가 올라가지 않은 상황에서 일시정지를 눌렀다가 다시 실행할 때")
             sCounterSteps = pref.getIntValue("defaultStep2")
-//            storedCount = pref.getIntValue("rebootDefault")
+            storedCount = pref.getIntValue("rebootDefault")
+        } else if (!isInitialStepSetup) {
+            sCounterSteps = pref.getIntValue("defaultStep2")
         }
     }
 
