@@ -170,9 +170,14 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
         CoroutineScope(Dispatchers.IO).launch {
             if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
                 dateInit = pref.getStringValue("today") != System.currentTimeMillis().getCurrentDate()
-                if (dateInit || !pref.getStringValue("today").isNullOrBlank()) {
+                if (dateInit && !pref.getStringValue("today").isNullOrBlank()) {
                     Logger.d("날짜가 리셋됐을 때/앱 최초 실행이 아닐 때${pref.getIntValue("defaultSCounterSteps")}")
                     sCounterSteps = pref.getIntValue("defaultSCounterSteps")
+                    storedCount = 0
+                    pref.setStringValue("today", System.currentTimeMillis().getCurrentDate())
+                    stepType = StepType.INIT
+                } else if (dateInit && pref.getStringValue("today").isNullOrBlank()) {
+                    sCounterSteps = event.values[0].toInt()
                     storedCount = 0
                     pref.setStringValue("today", System.currentTimeMillis().getCurrentDate())
                     stepType = StepType.INIT
