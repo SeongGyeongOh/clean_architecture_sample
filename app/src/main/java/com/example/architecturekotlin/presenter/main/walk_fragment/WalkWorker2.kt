@@ -19,9 +19,11 @@ class WalkWorker2 constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun doWork(): Result {
-        Logger.d("워커2 실행")
-        val intent = Intent(context, WalkService::class.java)
-        ContextCompat.startForegroundService(context, intent)
+        if (pref.getBoolVal("needWorker")) {
+            Logger.d("워커2 실행")
+            val intent = Intent(context, WalkService::class.java)
+            ContextCompat.startForegroundService(context, intent)
+        }
 
         return Result.success()
     }

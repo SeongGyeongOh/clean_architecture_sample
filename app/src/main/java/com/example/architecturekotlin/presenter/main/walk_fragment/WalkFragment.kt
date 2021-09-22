@@ -129,7 +129,7 @@ class WalkFragment @Inject constructor() : BaseFragment<FragmentWalkBinding>() {
 
         setVisibility()
 
-        startServiceViaWorker()
+//        startServiceViaWorker()
     }
 
     private fun stopService() {
