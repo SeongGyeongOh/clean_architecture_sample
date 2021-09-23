@@ -21,15 +21,9 @@ class WalkWorker(
         Logger.d("워커 isServiceRunning ${pref.getBoolVal("isServiceRunning")} \n needWorker ${pref.getBoolVal("needWorker")}")
         if (pref.getBoolVal("isServiceRunning") && pref.getBoolVal("needWorker")) {
             val intent = Intent(context, WalkService::class.java)
-            intent.putExtra("isInit", false)
             intent.putExtra("isReboot", true)
             ContextCompat.startForegroundService(context, intent)
-
-//            WorkManager.getInstance(context).cancelAllWorkByTag(WORK_TAG)
         }
         return Result.success()
     }
-
-//    val UNIQUE_WORK_NAME = "StartWalkServiceViaWorker"
-//    val WORK_TAG = "StartServiceInFragment"
 }
