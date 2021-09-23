@@ -19,12 +19,13 @@ class WalkWorker2 constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun doWork(): Result {
-        if (pref.getBoolVal("needWorker")) {
-            Logger.d("워커2 실행")
+        Logger.d("워커2 실행")
+
+        if (pref.getBoolVal("isServiceRunning") && pref.getBoolVal("needWorker")) {
             val intent = Intent(context, WalkService::class.java)
+            intent.putExtra("isRestart", true)
             ContextCompat.startForegroundService(context, intent)
         }
-
         return Result.success()
     }
 }

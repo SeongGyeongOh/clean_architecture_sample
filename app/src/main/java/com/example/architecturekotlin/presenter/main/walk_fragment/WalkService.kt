@@ -62,7 +62,7 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
 
         val isDateInit = pref.getStringValue("today") != System.currentTimeMillis().getCurrentDate()
         val isReboot = intent?.getBooleanExtra("isReboot", false)
-//        val isInitialStepSetup = pref.getBoolVal("isInitialStepSetup")
+        val isRestart = intent?.getBooleanExtra("isRestart", false)
         val isNotFirstRun = pref.getBoolVal("isNotFirstRun")
 
         if (pref.getBoolVal("isServicePause")) {
@@ -70,6 +70,9 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
             stepType = StepType.FIRST
             storedCount = pref.getIntValue("rebootDefault")
             pref.setBoolValue("isServicePause", false)
+        } else if (isRestart == true) {
+            sCounterSteps = pref.getIntValue("defaultSCounterSteps")
+            storedCount = pref.getIntValue("rebootDefault")
         } else if ((isReboot == true && isDateInit) || !isNotFirstRun){
             Logger.d("핸드폰을 재실행했거나 앱 최초 실행일 때")
             stepType = StepType.FIRST
@@ -78,6 +81,8 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
             Logger.d("핸드폰을 재실행했고 날짜가 아직 리셋되지 않았을 때")
             sCounterSteps = 0
             storedCount = pref.getIntValue("rebootDefault")
+        } else if (isDateInit) {
+            stepType = StepType.DATE_INIT
         } else {
             Logger.d("앱 최초 실행이 아니고, 일시정지를 눌렀다가 다시 실행할 때")
             sCounterSteps = pref.getIntValue("defaultSCounterSteps")
@@ -140,12 +145,6 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
         Logger.d("[서비스] - onDestroy")
         pref.setIntValue("defaultStep", defaultStep)
 
-//        if (addedCount == 0) {
-//            pref.setBoolValue("isInitialStepSetup", false)
-//        } else {
-//            pref.setBoolValue("isInitialStepSetup", true)
-//        }
-
         if (pref.getBoolVal("isServiceRunning")) {
             Logger.d("[서비스] - 혼자 죽음")
             val intent = Intent(this, MyReceiver::class.java)
@@ -170,7 +169,13 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
         CoroutineScope(Dispatchers.IO).launch {
             if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
                 dateInit = pref.getStringValue("today") != System.currentTimeMillis().getCurrentDate()
-                if (dateInit && !pref.getStringValue("today").isNullOrBlank()) {
+                if (stepType == StepType.DATE_INIT) {
+                    Logger.d("일시정지를 눌렀다가 다시 시작했는데 날짜가 리셋됐을 때")
+                    sCounterSteps = event.values[0].toInt()
+                    pref.setIntValue("defaultStep2", sCounterSteps)
+                    stepType = StepType.INIT
+                }
+                else if (dateInit && !pref.getStringValue("today").isNullOrBlank()) {
                     Logger.d("날짜가 리셋됐을 때/앱 최초 실행이 아닐 때${pref.getIntValue("defaultSCounterSteps")}")
                     sCounterSteps = pref.getIntValue("defaultSCounterSteps")
                     storedCount = 0
@@ -190,7 +195,6 @@ class WalkService @Inject constructor(): Service(), SensorEventListener {
 
                 defaultStep = sCounterSteps
                 val addedVal = event.values[0].toInt() - sCounterSteps + storedCount
-//                val addedVal = event.values[0].toInt() - sCounterSteps
 
                 pref.setIntValue("rebootDefault", addedVal)
                 pref.setIntValue("defaultSCounterSteps", event.values[0].toInt())
