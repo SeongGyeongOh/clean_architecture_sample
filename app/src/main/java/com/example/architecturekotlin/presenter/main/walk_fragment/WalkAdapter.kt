@@ -1,6 +1,5 @@
 package com.example.architecturekotlin.presenter.main.walk_fragment
 
-//import androidx.navigation.Navigation.findNavController
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil

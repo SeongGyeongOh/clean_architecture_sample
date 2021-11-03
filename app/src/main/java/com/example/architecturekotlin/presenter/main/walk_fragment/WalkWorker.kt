@@ -3,11 +3,10 @@ package com.example.architecturekotlin.presenter.main.walk_fragment
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import androidx.work.*
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.example.architecturekotlin.util.common.Logger
 import com.example.architecturekotlin.util.common.Pref
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 class WalkWorker(
     val context: Context,

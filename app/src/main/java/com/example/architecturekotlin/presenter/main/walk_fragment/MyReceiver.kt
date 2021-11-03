@@ -17,7 +17,7 @@ class MyReceiver : BroadcastReceiver() {
 
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
-                Logger.d("브로드캐스트 리시버 - ACTION_BOOT_COMPLETED, ACTION_RESTART")
+                Logger.d("브로드캐스트 리시버 - ACTION_BOOT_COMPLETED")
 
                 val workManager = WorkManager.getInstance(context)
                 val startServiceRequest = OneTimeWorkRequest.Builder(WalkWorker::class.java)
@@ -27,6 +27,7 @@ class MyReceiver : BroadcastReceiver() {
             }
 
             "ACTION_RESTART" -> {
+                Logger.d("브로드캐스트 리시버 - ACTION_RESTART")
                 val workManager = WorkManager.getInstance(context)
                 val startServiceRequest = OneTimeWorkRequest.Builder(WalkWorker2::class.java)
                     .build()
@@ -35,7 +36,4 @@ class MyReceiver : BroadcastReceiver() {
             }
         }
     }
-
-    val WORK_TAG = "StartServiceInFragment"
-    val REPEAT_TAG = "REPEAT"
 }

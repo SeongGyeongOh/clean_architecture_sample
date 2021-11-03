@@ -18,13 +18,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
-import androidx.work.*
 import com.example.architecturekotlin.databinding.FragmentWalkBinding
 import com.example.architecturekotlin.presenter.BaseFragment
-import com.example.architecturekotlin.util.common.*
 import com.example.architecturekotlin.util.common.Logger
+import com.example.architecturekotlin.util.common.Pref
+import com.example.architecturekotlin.util.common.getCurrentDate
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,9 +47,6 @@ class WalkFragment @Inject constructor() : BaseFragment<FragmentWalkBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setVisibility()
-        val date = pref.getStringValue("today")
-
-        Logger.i("프레그먼트가 시작될 때 날짜 확인 $date")
 
         binding.moveBtn.setOnClickListener {
             val action = WalkFragmentDirections.actionWalkFragmentToWalkGraphFragment()
@@ -67,7 +63,8 @@ class WalkFragment @Inject constructor() : BaseFragment<FragmentWalkBinding>() {
 
         handleState()
 
-        viewModel.setIntent(WalkIntent.GetTodayData(date = System.currentTimeMillis().getCurrentDate())
+        viewModel.setIntent(
+            WalkIntent.GetTodayData(date = System.currentTimeMillis().getCurrentDate())
         )
     }
 
@@ -128,8 +125,6 @@ class WalkFragment @Inject constructor() : BaseFragment<FragmentWalkBinding>() {
         }
 
         setVisibility()
-
-//        startServiceViaWorker()
     }
 
     private fun stopService() {
@@ -150,27 +145,8 @@ class WalkFragment @Inject constructor() : BaseFragment<FragmentWalkBinding>() {
         }
     }
 
-    private fun startServiceViaWorker() {
-        if (!pref.getBoolVal("isNotFirstRun")) {
-            pref.setStringValue("today", System.currentTimeMillis().getCurrentDate())
-
-            val workManager = WorkManager.getInstance(requireContext())
-
-            val request = PeriodicWorkRequest.Builder(
-                WalkWorker2::class.java,
-                16,
-                TimeUnit.MINUTES
-            ).build()
-
-            workManager.enqueueUniquePeriodicWork(
-                UNIQUE_WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                request
-            )
-
-        }
+    companion object {
+        const val WORK_TAG = "StartServiceInFragment"
+        const val UNIQUE_WORK_NAME = "StartWalkServiceViaWorker"
     }
-
-    val WORK_TAG = "StartServiceInFragment"
-    val UNIQUE_WORK_NAME = "StartWalkServiceViaWorker"
 }
