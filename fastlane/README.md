@@ -26,6 +26,16 @@ Runs all the tests
 fastlane android beta
 ```
 Submit a new Beta Build to Crashlytics Beta
+### android build_for_screengrab
+```
+fastlane android build_for_screengrab
+```
+Build debug and test APK for screenshots
+### android increment_vc
+```
+fastlane android increment_vc
+```
+Increment version code
 ### android deploy
 ```
 fastlane android deploy
@@ -35,7 +45,7 @@ Deploy a new version to the Google Play
 ```
 fastlane android distribution
 ```
-Distribution test
+Disxfftribution test
 
 ----
 

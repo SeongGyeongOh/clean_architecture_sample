@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import tools.fastlane.screengrab.Screengrab
 
 /**
  * Instrumented test, which will execute on an Android device.
