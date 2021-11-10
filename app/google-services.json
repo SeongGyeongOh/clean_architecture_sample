@@ -15,6 +15,43 @@
       },
       "oauth_client": [
         {
+          "client_id": "324615025186-6j09394ubnlol8ms8o8kqjbh69fnfse3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.architecturekotlin",
+            "certificate_hash": "799254edfc5bd33183e4a13739392d240e16954d"
+          }
+        },
+        {
+          "client_id": "324615025186-ajt1b73kf0agtn51j464bi8mciv7hlq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-oLBvGciIh2H52xJicJOshKxgdH66Yv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324615025186-ajt1b73kf0agtn51j464bi8mciv7hlq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324615025186:android:83f8c35c272d5a1e44d07b",
+        "android_client_info": {
+          "package_name": "com.gyeong.architecturekotlin"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "324615025186-ajt1b73kf0agtn51j464bi8mciv7hlq7.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -6,11 +6,11 @@
 
         <variable
             name="holder"
-            type="com.example.architecturekotlin.presenter.main.walk_fragment.WalkAdapter.WalkHolder" />
+            type="com.gyeong.architecturekotlin.presenter.main.walk_fragment.WalkAdapter.WalkHolder" />
 
         <variable
             name="walk"
-            type="com.example.architecturekotlin.domain.model.WalkModel" />
+            type="com.gyeong.architecturekotlin.domain.model.WalkModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

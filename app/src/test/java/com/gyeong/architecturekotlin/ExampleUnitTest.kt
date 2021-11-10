@@ -1,4 +1,4 @@
-package com.example.architecturekotlin
+package com.gyeong.architecturekotlin
 
 import org.junit.Test
 

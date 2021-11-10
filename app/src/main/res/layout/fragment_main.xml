@@ -5,7 +5,7 @@
     <data>
         <variable
             name="presenter"
-            type="com.example.architecturekotlin.presenter.main.main_fragment.MainFragment" />
+            type="com.gyeong.architecturekotlin.presenter.main.main_fragment.MainFragment" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="cntModel"
-            type="com.example.architecturekotlin.domain.model.CntModel" />
+            type="com.gyeong.architecturekotlin.domain.model.CntModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
