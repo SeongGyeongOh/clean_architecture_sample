@@ -36,6 +36,21 @@ Build debug and test APK for screenshots
 fastlane android increment_vc
 ```
 Increment version code
+### android release_alpha
+```
+fastlane android release_alpha
+```
+Upload alpha test
+### android release_beta
+```
+fastlane android release_beta
+```
+Upload beta test
+### android release_app_sharing
+```
+fastlane android release_app_sharing
+```
+Upload to internal app sharing
 ### android deploy
 ```
 fastlane android deploy

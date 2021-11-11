@@ -18,7 +18,7 @@ android {
         applicationId "com.gyeong.architecturekotlin"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 8
+        versionCode 12
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
